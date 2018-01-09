@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/server/server.js",
-    "build": "babel server/server.js -d dist",
+    "start": "nodemon server/server.js --exec babel-node --presets es2015",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -18,9 +17,7 @@
     "nodemon": "^1.14.9",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.29.2"
-  },
-  "devDependencies": {
+    "sequelize": "^4.29.2",
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1"
   }
