@@ -23,7 +23,7 @@ app.get('/comments', (req, res) => {
 
 app.get('/', (req, res) => {
   pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-    client.query('INSERT INTO test_table VALUES($1, $2) RETURNING *', ['test 1', 'test2'], (err, result) => {
+    client.query('CREATE TABLE test_table (id INTEGER PRIMARY KEY, name TEXT, something INTEGER)', (err, result) => {
       done();
       if (err) {
         return res.send(`Error: ${err}`);
