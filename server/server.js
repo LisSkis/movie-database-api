@@ -1,18 +1,47 @@
 import express from 'express';
-import Sequelize from 'sequelize';
+import request from 'request';
 import pg from 'pg';
 
+import sequelize from './db/db';
+import Movie from './models/movie';
+
 const app = express();
+const omdbApiKey = '7cd5879e';
 const port = process.env.PORT || 3000;
-const dbUrl = process.env.DATABASE_URL || 'postgres://jxpiolxvcavudw:5ca7d5239b2360e639e09e791ebc934ddc4698825fdbebe0e638bd93ee280ce9@ec2-54-83-59-144.compute-1.amazonaws.com:5432/dd3u2ejnlqqah4';
+
+app.use(express.json());
 
 app.post('/movies', (req, res) => {
-
+  const title = req.body.title
+  const omdbUrl = `https://www.omdbapi.com/`;
+  request.get({
+    uri: omdbUrl,
+    qs: {
+      t: title,
+      apikey: omdbApiKey,
+    },
+  }, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      const movieData = JSON.parse(body);
+      Movie.create({
+        title,
+        released: movieData.Released,
+        runtime: movieData.Runtime,
+        genre: movieData.Genre,
+        metascore: movieData.Metascore,
+        production: movieData.Production,
+      }).then(() => {
+        res.send('saved');
+      });
+    } else {
+      res.send(error);
+    }
+  })
 });
 
 app.get('/movies', (req, res) => {
   pg.connect(dbUrl, (err, client, done) => {
-    client.query('SELECT * FROM test_table', (err, result) => {
+    client.query('SELECT * FROM movies', (err, result) => {
       if (err) return res.send(`Error: ${err}`);
 
       res.send(result);
