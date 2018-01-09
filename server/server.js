@@ -22,7 +22,16 @@ app.get('/comments', (req, res) => {
 }); */
 
 app.get('/', (req, res) => {
-  res.send('This is my site');
+  pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+    client.query('SELECT * FROM test_table', (err, result) => {
+      done();
+      if (err) {
+        return res.send(`Error: ${err}`);
+      }
+
+      return res.send(result);
+    });
+  });
 });
 
 app.listen(port, () => {
