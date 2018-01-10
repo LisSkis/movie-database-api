@@ -47,7 +47,7 @@ app.post('/movies', (req, res) => {
               res.status(400).send('Movie already exists in database');
             }
           });
-        })
+        }).catch(e => res.status(400).send(e));
       } else {
         res.status(404).send(JSON.parse(body).Error);
       }
@@ -80,8 +80,8 @@ app.get('/movies', (req, res) => {
         }
       });
       res.send({movies});
-    });
-  });
+    }).catch(e => res.status(400).send(e));
+  }).catch(e => res.status(400).send(e));
 });
 
 app.post('/comments', (req, res) => {
@@ -94,19 +94,19 @@ app.post('/comments', (req, res) => {
     Comment.create(comment).then((data) => {
       res.send(data);
     }).catch(e => res.status(400).send(`Error ${e.original.code}: ${e.original.detail}`));
-  });
+  }).catch(e => res.status(400).send(e));
 });
 
 app.get('/comments', (req, res) => {
   if (req.query.movieId) {
     Comment.findAll({ where: { movieId: req.query.movieId }}).then((comments) => {
       res.send(comments);
-    });
+    }).catch(e => res.status(400).send(e));
   } else {
     Comment.sync().then(() => {
       Comment.all().then((comments) => {
         res.send(comments);
-      });
+      }).catch(e => res.status(400).send(e));
     });
   }
 });
