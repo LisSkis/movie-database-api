@@ -1,25 +1,28 @@
 import Sequelize from 'sequelize';
+
 import sequelize from '../db/db';
 
 const Movie = sequelize.define('movie', {
-  title: {
-    type: Sequelize.STRING,
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  release: {
-    type: Sequelize.STRING,
-  },
-  runtime: {
-    type: Sequelize.STRING,
-  },
-  genre: {
-    type: Sequelize.STRING,
-  },
-  metascore: {
-    type: Sequelize.STRING,
-  },
-  production: {
-    type: Sequelize.STRING,
-  },
+  Title: Sequelize.STRING,
+  Year: Sequelize.INTEGER,
+  Rated: Sequelize.STRING,
+  Released: Sequelize.STRING,
+  Runtime: Sequelize.STRING,
+  Genre: Sequelize.STRING,
+  Director: Sequelize.STRING,
+  Plot: Sequelize.STRING,
+  Language: Sequelize.STRING,
+  Poster: Sequelize.STRING,
+  Ratings: Sequelize.ARRAY(Sequelize.JSON),
+  Metascore: Sequelize.INTEGER,
+  BoxOffice: Sequelize.STRING,
+  Production: Sequelize.STRING,
+  Website: Sequelize.STRING,
 });
 
 export default Movie;
