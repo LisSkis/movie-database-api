@@ -15,6 +15,9 @@ To start the server use `npm start`.
 To run the tests you can use `npm test` to run them just once, or `npm run test-watch` to start test,
 monitor code for changes and automatically restart the server once change occures.
 
+## Live Version
+You can access server on: https://thawing-stream-29258.herokuapp.com
+
 ## Available endpoints
 ### POST /movies
 * Data Params
