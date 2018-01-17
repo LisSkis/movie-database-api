@@ -31,4 +31,6 @@ export const prepareMovieToAdd = (movieData) => {
   for(let i = 0; i < movieData.Ratings.length; i += 1) {
     movieData.Ratings[i] = JSON.stringify(movieData.Ratings[i]);
   }
+
+  return movieData;
 }

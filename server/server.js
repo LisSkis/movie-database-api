@@ -12,6 +12,8 @@ import {
 } from './utils/helpers';
 
 const app = express();
+const omdbUrl = process.env.OMDB_URL || 'https://www.omdbapi.com/';
+const omdbApiKey = process.env.OMDB_API_KEY || '7cd5879e';
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -24,16 +26,17 @@ app.post('/movies', async (req, res) => {
 
   try {
     const movieBody = await request.get({
-      uri: process.env.OMDB_URL,
+      uri: omdbUrl,
       qs: {
         t: title,
-        apikey: process.env.OMDB_API_KEY,
+        apikey: omdbApiKey,
       },
     });
 
-    const prasedMovieBody = JSON.parse(movieBody);
+    const parsedMovieBody = JSON.parse(movieBody);
     if (!parsedMovieBody.Error) {
       const movieData = prepareMovieToAdd(parsedMovieBody);
+      console.log(movieData);
       await Movie.sync();
       const [movie, created] = await Movie.findOrCreate({where: {Title: title}, defaults: movieData});
       if (created) {
@@ -44,7 +47,7 @@ app.post('/movies', async (req, res) => {
         res.status(400).send('Movie already exists in database');
       }
     } else {
-      res.status(404).send(JSON.parse(body).Error);
+      res.status(404).send(parsedMovieBody.Error);
     }
   } catch (e) {
     res.status(404).send(e);
