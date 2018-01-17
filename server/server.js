@@ -12,8 +12,8 @@ import {
 } from './utils/helpers';
 
 const app = express();
-const omdbUrl = process.env.OMDB_URL || 'https://www.omdbapi.com/';
-const omdbApiKey = process.env.OMDB_API_KEY || '7cd5879e';
+const omdbUrl = process.env.OMDB_URL;
+const omdbApiKey = process.env.OMDB_API_KEY;
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
