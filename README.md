@@ -75,8 +75,7 @@ You can access server on: https://thawing-stream-29258.herokuapp.com
 
 **Optional:**
 
-`sortBy=[year || metascore]` - Use to sort response by year or metascore<br />
-`sortType=[asc || desc]` - Use to change sorting type, asc for ascending, desc for descending (Default: desc)<br />
+`sort[year || metascore]=[asc || desc]` - Use to sort response by year or metascore<br />
 `filter[propName]=[string]` - Use to get only results where prop is value you specify
 
 * Success Response:
