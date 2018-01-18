@@ -1,5 +1,5 @@
-# nodejs-task
-This is the task I had to do for recruitment process for the position of Node.js Developer at Netguru.
+# movie-database-api
+This is simple movie database interacting with external API.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
